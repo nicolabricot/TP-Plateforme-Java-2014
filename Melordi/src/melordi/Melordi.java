@@ -26,8 +26,11 @@ public class Melordi extends Application {
         Instruments myInstrument = new Instruments();
         
         
-        Clavier myClavier = new Clavier();
+        Clavier myClavier = new Clavier(myInstrument);
+        
         root.getChildren().add(myClavier);
+        
+        myClavier.requestFocus();
         
         primaryStage.setScene(scene);
         primaryStage.show();

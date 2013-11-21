@@ -6,7 +6,9 @@
 
 package melordi;
 
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -22,15 +24,17 @@ public class Touche extends Parent {
     private int positionX = 0;
     private int positionY = 0;
     private int note = 0;
+    private Instruments instrument;
     
     Rectangle fond;
     Text lettreTouche;
     
-    public Touche(String l, int posX, int posY, int n){
-        lettre =  new String(l);
-        positionX = posX;
-        positionY = posY;
-        note = n;
+    public Touche(String l, int posX, int posY, int n,Instruments inst){
+        this.lettre =  new String(l);
+        this.positionX = posX;
+        this.positionY = posY;
+        this.note = n;
+        this.instrument = inst;
         
         fond = new Rectangle(75,75,Color.WHITE);
         fond.setArcHeight(10);
@@ -46,5 +50,41 @@ public class Touche extends Parent {
         
         this.setTranslateX(positionX);//positionnement de la touche sur le clavier
         this.setTranslateY(positionY);
+        
+        this.setOnMouseEntered(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent me){
+            fond.setFill(Color.LIGHTGREY);
+            }
+        });
+        
+        this.setOnMouseExited(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent me){
+            fond.setFill(Color.WHITE);
+            }
+        });
+        
+        this.setOnMousePressed(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent me){
+                appuyer();
+            }
+        });
+        this.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent me){
+                relacher();
+            }
+        });
+
+    }
+    
+    public void appuyer(){
+        fond.setFill(Color.DARKGREY);
+        this.setTranslateY(this.positionY+2);
+        this.instrument.noteOn(note);
+    }
+    
+    public void relacher(){
+         fond.setFill(Color.WHITE);
+        this.setTranslateY(this.positionY);
+        this.instrument.noteOff(note);
     }
 }
