@@ -5,7 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Valériane JEAN
+ *          3A IR
+ */
 public class PlusMoins extends Application {
+    
+    
 
     public static void main(String[] args) {
         Application.launch(args);
