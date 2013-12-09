@@ -33,6 +33,14 @@
             <Property name="text" type="java.lang.String" value="Game"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="NewUndefinedGame">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="New"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NewUndefinedGameActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuNoviceGame">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New Novice"/>

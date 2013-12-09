@@ -15,38 +15,43 @@ public class Memo {
     public enum LEVEL {
         Novice, Normal, Intermediary, Expert
     }
-    private final LEVEL level;
+    public static boolean isLevel(LEVEL level) {
+        for (LEVEL l : LEVEL.values()) {
+            if (l.equals(level)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private final int rows;
     private final int cols;
     private Couple[] couples;
     private Card[] cards;
 
-    public Memo(LEVEL level) throws Exception {
+    public Memo(LEVEL level) {
         switch (level) {
-            case Novice:
-                this.rows = 2;
-                this.cols = 3;
-                break;
-                
             case Normal:
                 this.rows = 4;
                 this.cols = 5;
                 break;
-                
+
             case Intermediary:
                 this.rows = 6;
                 this.cols = 6;
                 break;
-                
+
             case Expert:
                 this.rows = 6;
                 this.cols = 8;
                 break;
-                
+
+            case Novice:
             default:
-                throw new Exception("Unrecognized level");
+                this.rows = 2;
+                this.cols = 3;
+                break;
         }
-        this.level = level;
 
         // create couple with two "same" cards
         this.couples = new Couple[this.numberCouples()];
@@ -59,9 +64,13 @@ public class Memo {
         for (Couple c : this.couples) {
             int left_position = (int) (Math.random() * (numberCards));
             int right_position = (int) (Math.random() * (numberCards));
-            while (this.cards[left_position] != null) { left_position = (int) (Math.random() * (numberCards)); }
+            while (this.cards[left_position] != null) {
+                left_position = (int) (Math.random() * (numberCards));
+            }
             this.cards[left_position] = c.left();
-            while (this.cards[right_position] != null) { right_position = (int) (Math.random() * (numberCards)); }
+            while (this.cards[right_position] != null) {
+                right_position = (int) (Math.random() * (numberCards));
+            }
             this.cards[right_position] = c.right();
         }
     }
@@ -81,7 +90,7 @@ public class Memo {
     public final int numberCouples() {
         return this.numberCards() / 2;
     }
-    
+
     public Card[] cards() {
         return this.cards;
     }
