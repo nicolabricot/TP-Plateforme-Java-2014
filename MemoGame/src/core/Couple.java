@@ -14,12 +14,12 @@ public class Couple {
 
     private Card left;
     private Card right;
-    private final int ID;
+    private final int value;
 
-    public Couple(int ID) {
-        this.ID = ID;
-        this.left = new Card(ID);
-        this.right = new Card(ID);
+    public Couple(int value) {
+        this.value = value;
+        this.left = new Card(value);
+        this.right = new Card(value);
     }
 
     public boolean matched(Card left, Card right) {

@@ -4,7 +4,10 @@
  */
 package gui;
 
+import core.Memo;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -12,25 +15,46 @@ import javax.swing.ImageIcon;
  * @author Nicolas Devenet <nicolas@devenet.info>
  */
 public class Card extends javax.swing.JPanel {
+    
+    public enum STATE {
+        HIDDEN, VISIBLE, MATCHED
+    }
 
-    private static final String backImageName = "back.png";
-    private int ID = 0; // to transform in FINAL
+    private final int value;
+    private STATE state;
+    private final ImageIcon backImage, headsImage;
 
     /**
      * Creates new form GameBoard
      */
-    public Card(int ID) {
-        this.ID = ID;
+    public Card(int value) {
+        this.value = value;
+        this.state = STATE.HIDDEN;
         initComponents();
-        this.myLabel.setText(Integer.toString(ID));
+        this.backImage = new ImageIcon(this.getClass().getClassLoader().getResource("res/back.png"));
+        this.headsImage = new ImageIcon(this.getClass().getClassLoader().getResource("res/" + value + ".png"));
+        this.myLabel.setText(Integer.toString(value));
+    }
+    
+    public void updateState(STATE state) {
+        if (this.state != STATE.MATCHED) {
+            this.state = state;
+            this.repaint();
+            Logger.getLogger(Card.class.getName()).log(Level.INFO, this+" updated to state "+this.state);
+        }
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(new ImageIcon(this.getClass().getClassLoader().getResource("res/" + backImageName)).getImage(), 0, 0, this);
+        if (this.state != STATE.HIDDEN) {
+            g.drawImage(this.headsImage.getImage(), 0, 0, this);
+        } else {
+            g.drawImage(this.backImage.getImage(), 0, 0, this);
+        }
     }
 
+    /*
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -40,13 +64,14 @@ public class Card extends javax.swing.JPanel {
             return false;
         }
         Card c = (Card) o;
-        return ID == c.ID;
+        return value == c.value;
     }
+    * */
 
     @Override
     public String toString() {
         StringBuilder tmp = new StringBuilder("Card(")
-                .append(ID)
+                .append(value)
                 .append(")");
         return tmp.toString();
     }
@@ -93,6 +118,7 @@ public class Card extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
+        Logger.getLogger(Card.class.getName()).log(Level.INFO, this+" clicked on state "+this.state);
     }//GEN-LAST:event_formMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel myLabel;
