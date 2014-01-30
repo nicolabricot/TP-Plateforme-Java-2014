@@ -14,22 +14,14 @@ public class Couple {
 
     private Card left;
     private Card right;
-    private final int value;
     private Memo game;
 
     public Couple(int value, Memo game) {
-        this.value = value;
         this.game = game;
         this.left = new Card(value, this);
         this.right = new Card(value, this);
     }
-
-    /*
-    public boolean matched(Card left, Card right) {
-        return (left.equals(this.left) && right.equals(this.right)) || (left.equals(this.right) && right.equals(this.left));
-    }
-    * */
-    
+  
     public void checkedCard() {
         if (this.left.state().equals(Card.STATE.VISIBLE) && this.right.state().equals(Card.STATE.VISIBLE)) {
             // both card are visible, we have found a couple :)
