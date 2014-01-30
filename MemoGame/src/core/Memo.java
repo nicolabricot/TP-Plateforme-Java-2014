@@ -5,6 +5,7 @@
 package core;
 
 import gui.Card;
+import gui.Game;
 
 /**
  *
@@ -13,7 +14,6 @@ import gui.Card;
 public class Memo {
 
     public enum LEVEL {
-
         Novice, Normal, Intermediary, Expert
     }
 
@@ -31,8 +31,11 @@ public class Memo {
     private Card[] cards;
     private int currentVisibleCards = 0;
     private final int maximumVisibleCards = 2;
+    private Game gameBoard;
+    private int couplesFound = 0;
 
-    public Memo(LEVEL level) {
+    public Memo(LEVEL level, Game gameBoard) {
+        this.gameBoard = gameBoard;
         switch (level) {
             case Normal:
                 this.rows = 4;
@@ -113,9 +116,13 @@ public class Memo {
 
     public void coupleFound() {
         this.currentVisibleCards = 0;
+        this.couplesFound++;
         this.isGameEnded();
     }
 
     private void isGameEnded() {
+        if (this.couplesFound == this.numberCouples()) {
+            this.gameBoard.gameIsEnded();
+        }
     }
 }

@@ -9,6 +9,7 @@ import core.Memo;
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,6 +24,7 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
+        //this.setIconImage(new ImageIcon(ClassLoader.getSystemResource("res/icon.png")).getImage());
     }
 
     /**
@@ -39,7 +41,6 @@ public class Game extends javax.swing.JFrame {
         MenuNewGame = new javax.swing.JMenuItem();
         MenuQuit = new javax.swing.JMenuItem();
         GameMenu = new javax.swing.JMenu();
-        NewUndefinedGame = new javax.swing.JMenuItem();
         MenuNoviceGame = new javax.swing.JMenuItem();
         MenuNormalGame = new javax.swing.JMenuItem();
 
@@ -71,14 +72,7 @@ public class Game extends javax.swing.JFrame {
         MainMenuBar.add(FileMenu);
 
         GameMenu.setText("Game");
-
-        NewUndefinedGame.setText("New");
-        NewUndefinedGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewUndefinedGameActionPerformed(evt);
-            }
-        });
-        GameMenu.add(NewUndefinedGame);
+        GameMenu.setEnabled(false);
 
         MenuNoviceGame.setText("New Novice");
         MenuNoviceGame.setToolTipText("");
@@ -142,11 +136,6 @@ public class Game extends javax.swing.JFrame {
         createGame();
     }//GEN-LAST:event_MenuNormalGameActionPerformed
 
-    private void NewUndefinedGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewUndefinedGameActionPerformed
-        // TODO add your handling code here:
-        createGame();
-    }//GEN-LAST:event_NewUndefinedGameActionPerformed
-
     private Memo.LEVEL getAskedLevel() {
         return (Memo.LEVEL) JOptionPane.showInputDialog(null,
                 "Please select your level:",
@@ -154,7 +143,7 @@ public class Game extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 Memo.LEVEL.values(),
-                Memo.LEVEL.values()[0]);
+                this.level);
     }
 
     private void createGame() {
@@ -166,7 +155,7 @@ public class Game extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, "Level " + this.level + " not recognized!");
         } else {
-            this.game = new Memo(this.level);
+            this.game = new Memo(this.level, this);
             JPanel containerPanel = new JPanel();
             JPanel panel = new JPanel(new GridLayout(this.game.rows(), this.game.cols(), 10, 10));
             for (Card c : this.game.cards()) {
@@ -180,6 +169,14 @@ public class Game extends javax.swing.JFrame {
 
             Logger.getLogger(Game.class.getName()).log(Level.INFO, "Initialization done for new game");
         }
+    }
+    
+    public void gameIsEnded() {
+        JOptionPane.showMessageDialog(null,
+                    "Congratulations, you've finished the game.",
+                    "Win!",
+                    JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(Game.class.getName()).log(Level.INFO, "Game is ended.");
     }
 
     /**
@@ -224,8 +221,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuNormalGame;
     private javax.swing.JMenuItem MenuNoviceGame;
     private javax.swing.JMenuItem MenuQuit;
-    private javax.swing.JMenuItem NewUndefinedGame;
     // End of variables declaration//GEN-END:variables
     private Memo game;
-    private Memo.LEVEL level;
+    private Memo.LEVEL level = Memo.LEVEL.Normal;
 }
