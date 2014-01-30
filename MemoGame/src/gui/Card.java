@@ -37,7 +37,7 @@ public class Card extends javax.swing.JPanel {
         initComponents();
         this.backImage = new ImageIcon(this.getClass().getClassLoader().getResource("res/back.png"));
         this.headsImage = new ImageIcon(this.getClass().getClassLoader().getResource("res/" + value + ".png"));
-        this.myLabel.setText(Integer.toString(value));
+        //this.myLabel.setText(Integer.toString(value));
     }
     
     public void updateState(STATE state) {
@@ -61,20 +61,6 @@ public class Card extends javax.swing.JPanel {
             g.drawImage(this.backImage.getImage(), 0, 0, this);
         }
     }
-
-    /*
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof Card)) {
-            return false;
-        }
-        Card c = (Card) o;
-        return value == c.value;
-    }
-    */
 
     @Override
     public String toString() {
@@ -104,7 +90,6 @@ public class Card extends javax.swing.JPanel {
         });
 
         myLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        myLabel.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,12 +98,12 @@ public class Card extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(myLabel)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addComponent(myLabel)
                 .addContainerGap())
         );
@@ -127,8 +112,8 @@ public class Card extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         Logger.getLogger(Card.class.getName()).log(Level.INFO, this+" clicked on state "+this.state);
+        if (!this.state.equals(STATE.HIDDEN)) { return; }
         if (this.couple.acceptVisibleCard()) {
-            Logger.getLogger(Card.class.getName()).log(Level.INFO, "YEAH, WE CAN RETURN THE CARD :)");
             this.updateState(STATE.VISIBLE);
             this.couple.checkedCard();
         }
