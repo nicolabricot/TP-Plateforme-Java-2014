@@ -5,6 +5,7 @@
 package gui;
 
 import core.Memo;
+
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -170,7 +171,7 @@ public class Game extends javax.swing.JFrame {
             JPanel panel = new JPanel(new GridLayout(this.game.rows(), this.game.cols(), 10, 10));
             for (Card c : this.game.cards()) {
                 panel.add(c);
-                Logger.getLogger(Game.class.getName()).log(Level.INFO, "Added " + c);
+                //Logger.getLogger(Game.class.getName()).log(Level.INFO, "Added " + c);
             }
             containerPanel.add(panel);
             this.setContentPane(containerPanel);

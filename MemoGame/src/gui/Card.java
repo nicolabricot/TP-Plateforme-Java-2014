@@ -4,6 +4,7 @@
  */
 package gui;
 
+import core.Couple;
 import core.Memo;
 import java.awt.Graphics;
 import java.util.logging.Level;
@@ -23,12 +24,15 @@ public class Card extends javax.swing.JPanel {
     private final int value;
     private STATE state;
     private final ImageIcon backImage, headsImage;
+    
+    private Couple couple;
 
     /**
      * Creates new form GameBoard
      */
-    public Card(int value) {
+    public Card(int value, Couple couple) {
         this.value = value;
+        this.couple = couple;
         this.state = STATE.HIDDEN;
         initComponents();
         this.backImage = new ImageIcon(this.getClass().getClassLoader().getResource("res/back.png"));
@@ -42,6 +46,10 @@ public class Card extends javax.swing.JPanel {
             this.repaint();
             Logger.getLogger(Card.class.getName()).log(Level.INFO, this+" updated to state "+this.state);
         }
+    }
+    
+    public STATE state() {
+        return this.state;
     }
 
     @Override
@@ -66,7 +74,7 @@ public class Card extends javax.swing.JPanel {
         Card c = (Card) o;
         return value == c.value;
     }
-    * */
+    */
 
     @Override
     public String toString() {
@@ -119,6 +127,11 @@ public class Card extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         Logger.getLogger(Card.class.getName()).log(Level.INFO, this+" clicked on state "+this.state);
+        if (this.couple.acceptVisibleCard()) {
+            Logger.getLogger(Card.class.getName()).log(Level.INFO, "YEAH, WE CAN RETURN THE CARD :)");
+            this.updateState(STATE.VISIBLE);
+            this.couple.checkedCard();
+        }
     }//GEN-LAST:event_formMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel myLabel;

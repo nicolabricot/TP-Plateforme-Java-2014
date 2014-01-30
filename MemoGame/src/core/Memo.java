@@ -13,8 +13,10 @@ import gui.Card;
 public class Memo {
 
     public enum LEVEL {
+
         Novice, Normal, Intermediary, Expert
     }
+
     public static boolean isLevel(LEVEL level) {
         for (LEVEL l : LEVEL.values()) {
             if (l.equals(level)) {
@@ -23,11 +25,12 @@ public class Memo {
         }
         return false;
     }
-    
     private final int rows;
     private final int cols;
     private Couple[] couples;
     private Card[] cards;
+    private int currentVisibleCards = 0;
+    private final int maximumVisibleCards = 2;
 
     public Memo(LEVEL level) {
         switch (level) {
@@ -56,7 +59,7 @@ public class Memo {
         // create couple with two "same" cards
         this.couples = new Couple[this.numberCouples()];
         for (int i = 0; i < this.numberCouples(); i++) {
-            this.couples[i] = new Couple(i + 1);
+            this.couples[i] = new Couple(i + 1, this);
         }
         // put cards in random position
         int numberCards = this.numberCards();
@@ -93,5 +96,26 @@ public class Memo {
 
     public Card[] cards() {
         return this.cards;
+    }
+
+    public boolean acceptVisibleCard() {
+        if (this.currentVisibleCards < this.maximumVisibleCards) {
+            this.currentVisibleCards++;
+            return true;
+        }
+        // we need to hidden again the two visible cards
+        for (Card c : this.cards) {
+            c.updateState(Card.STATE.HIDDEN);
+        }
+        this.currentVisibleCards = 0;
+        return false;
+    }
+
+    public void coupleFound() {
+        this.currentVisibleCards = 0;
+        this.isGameEnded();
+    }
+
+    private void isGameEnded() {
     }
 }
