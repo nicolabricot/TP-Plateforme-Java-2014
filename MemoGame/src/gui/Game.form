@@ -9,15 +9,6 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuNewGame">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="New game"/>
-                <Property name="actionCommand" type="java.lang.String" value="NewGame"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuNewGameActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuQuit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quit"/>
@@ -31,25 +22,24 @@
         <Menu class="javax.swing.JMenu" name="GameMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Game"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuNoviceGame">
+            <MenuItem class="javax.swing.JMenuItem" name="MenuSelectLevel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New Novice"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="text" type="java.lang.String" value="Select level"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuNoviceGameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuSelectLevelActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuNormalGame">
+            <MenuItem class="javax.swing.JMenuItem" name="MenuNewGame">
               <Properties>
-                <Property name="text" type="java.lang.String" value="New Normal"/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="text" type="java.lang.String" value="New game"/>
+                <Property name="actionCommand" type="java.lang.String" value="NewGame"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuNormalGameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuNewGameActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
