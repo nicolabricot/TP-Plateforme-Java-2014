@@ -40,7 +40,7 @@ public class Launcher extends Application {
                         System.out.println(listeFichier[i]);// on choisit la sous chaine - les 5 derniers caracteres ".java" 
                     }
                 }
-                String[] command = new String[]{"java", "-jar", "/projet/PlusMoins.jar"};
+                String[] command = new String[]{"java", "-jar", "../projet/PlusMoins.jar"};
                 System.out.println("erreur 1 !");
                 try {
                     System.out.println("erreur 2 !");
