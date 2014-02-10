@@ -14,7 +14,7 @@ import gui.Game;
 public class Memo {
 
     public enum LEVEL {
-        Novice, Normal, Intermediary, Expert
+        Easy, Normal, Hard, Expert
     }
 
     public static boolean isLevel(LEVEL level) {
@@ -42,7 +42,7 @@ public class Memo {
                 this.cols = 5;
                 break;
 
-            case Intermediary:
+            case Hard:
                 this.rows = 6;
                 this.cols = 6;
                 break;
@@ -52,7 +52,7 @@ public class Memo {
                 this.cols = 8;
                 break;
 
-            case Novice:
+            case Easy:
             default:
                 this.rows = 2;
                 this.cols = 3;
