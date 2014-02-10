@@ -22,8 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -80,7 +78,7 @@ public class Launcher extends Application {
         root.getChildren().add(pane);
     }
 
-    public void createCircles() {
+   public void createCircles() {
         Group circles = new Group();
         for (int i = 0; i < 20; i++) {
             Circle circle = new Circle(30, Color.BISQUE);
@@ -144,7 +142,7 @@ public class Launcher extends Application {
         this.createButton();
         Scene scene = new Scene(root, 500, 500, Color.ALICEBLUE);
 
-        primaryStage.setTitle("Games Launcher");
+        primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
 
         primaryStage.show();
