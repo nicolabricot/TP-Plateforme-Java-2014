@@ -46,7 +46,7 @@ public class Launcher extends Application {
         pane.setVgap(20);
         pane.setHgap(20);
        
-        Label label = new Label("Jeux disponible :");
+        Label label = new Label("Jeux disponibles :");
         pane.getChildren().add(label);
         
         final File projet = new File("./projet");       
@@ -111,9 +111,9 @@ public class Launcher extends Application {
     public void createRectangles(){
         Group rectangles = new Group();
         for (int i = 0; i < 20; i++) {
-            Rectangle rectangle = new Rectangle(20, 30, Color.BROWN);
+            Rectangle rectangle = new Rectangle(50, 50, Color.LIGHTSKYBLUE);
             rectangle.setStrokeType(StrokeType.OUTSIDE);
-            rectangle.setStroke(Color.BROWN);
+            rectangle.setStroke(Color.LIGHTSKYBLUE);
             rectangle.setStrokeWidth(1);
             rectangles.getChildren().add(rectangle);
         }
@@ -144,7 +144,7 @@ public class Launcher extends Application {
         this.createButton();
         Scene scene = new Scene(root, 500, 500, Color.ALICEBLUE);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Games Launcher");
         primaryStage.setScene(scene);
 
         primaryStage.show();
