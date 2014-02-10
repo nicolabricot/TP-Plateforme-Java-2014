@@ -83,7 +83,7 @@ public class Launcher extends Application {
     public void createCircles() {
         Group circles = new Group();
         for (int i = 0; i < 20; i++) {
-            Circle circle = new Circle(10, Color.BISQUE);
+            Circle circle = new Circle(30, Color.BISQUE);
             circle.setStrokeType(StrokeType.OUTSIDE);
             circle.setStroke(Color.BISQUE);
             circle.setStrokeWidth(4);
@@ -111,10 +111,10 @@ public class Launcher extends Application {
     public void createRectangles(){
         Group rectangles = new Group();
         for (int i = 0; i < 20; i++) {
-            Rectangle rectangle = new Rectangle(5, 10, Color.BROWN);
+            Rectangle rectangle = new Rectangle(20, 30, Color.BROWN);
             rectangle.setStrokeType(StrokeType.OUTSIDE);
             rectangle.setStroke(Color.BROWN);
-            rectangle.setStrokeWidth(4);
+            rectangle.setStrokeWidth(1);
             rectangles.getChildren().add(rectangle);
         }
         root.getChildren().add(rectangles);
