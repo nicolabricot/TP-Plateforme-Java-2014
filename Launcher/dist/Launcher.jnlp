@@ -3,7 +3,7 @@
   <information>
     <title>Launcher</title>
     <vendor>Valoo</vendor>
-    <description>null</description>
+    <description>Sample JavaFX 2.0 application.</description>
     <offline-allowed/>
   </information>
   <resources>
@@ -11,7 +11,11 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Launcher.jar" size="19190" download="eager" />
+    <jar href="Launcher.jar" size="19108" download="eager" />
+    <jar href="lib/deploy.jar" size="4230196" download="eager" />
+    <jar href="lib/javaws.jar" size="894198" download="eager" />
+    <jar href="lib/jfxrt.jar" size="15092678" download="eager" />
+    <jar href="lib/plugin.jar" size="1905758" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Launcher" >
     <param name="requiredFXVersion" value="2.2+"/>
