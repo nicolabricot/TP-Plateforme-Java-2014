@@ -5,8 +5,11 @@
  */
 package launcher;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import static java.lang.Math.random;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -132,6 +135,42 @@ public class Launcher extends Application {
         }
         // play 40s of animation
         timeline.play();
+    }
+    
+     public static String loadFile(File f) {
+
+        try {
+
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+            StringWriter out = new StringWriter();
+            int b;
+            while ((b = in.read()) != -1) {
+                out.write(b);
+            }
+            out.flush();
+            out.close();
+            in.close();
+            return out.toString();
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
+        return null;
+
+    }
+    
+    public void createRemune(){
+        FlowPane pane= new FlowPane();
+        pane.setPadding(new Insets(50,50,50,150));
+        Rectangle rectangle = new Rectangle(300, 300);
+        rectangle.setStroke(Color.BLUEVIOLET);
+        rectangle.setFill(null);
+        final File projet = new File("./projet/Melordi.txt");
+        String content = loadFile(projet);
+        Label lable = new Label(content);
+        pane.getChildren().add(lable);
+        pane.getChildren().add(rectangle);
+        
+        root.getChildren().add(pane);
     }
 
     @Override
