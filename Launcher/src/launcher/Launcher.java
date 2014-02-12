@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import static java.lang.Math.random;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -29,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -40,6 +42,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 /**
@@ -216,7 +219,7 @@ public class Launcher extends Application {
     private String readGameInfo(String game) throws IOException {
         URL file = new URL("jar:file:" + folder.getAbsolutePath() + File.separator + game + "!/res/summary.txt");
         URLConnection connection = file.openConnection();
-        BufferedReader bf = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader bf = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charset.forName("UTF-8")));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = bf.readLine()) != null) {
@@ -244,8 +247,10 @@ public class Launcher extends Application {
         Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT, Color.ALICEBLUE);
 
         primaryStage.setTitle("Games board");
+        primaryStage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/res/icon.png")));
+        primaryStage.setResizable(false);
+        
         primaryStage.setScene(scene);
-
         primaryStage.show();
     }
 

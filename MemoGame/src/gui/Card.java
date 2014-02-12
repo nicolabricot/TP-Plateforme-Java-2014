@@ -5,7 +5,6 @@
 package gui;
 
 import core.Couple;
-import core.Memo;
 import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
