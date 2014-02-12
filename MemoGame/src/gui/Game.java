@@ -260,7 +260,7 @@ public class Game extends javax.swing.JFrame {
         long second = TimeUnit.SECONDS.toSeconds(this.time) - (TimeUnit.SECONDS.toMinutes(this.time) * 60);
         String duration = (minute > 0 ? Long.toString(minute) + " minute" + (minute > 1 ? "s" : "") + " and " : "")
                 + (second > 0 ? Long.toString(second) + " second" + (second > 1 ? "s" : "") : "");
-        if (this.time >= this.timeOut) {
+        if (minute >= this.timeOut) {
             duration = "a too long time";
         }
         JOptionPane.showMessageDialog(null,
