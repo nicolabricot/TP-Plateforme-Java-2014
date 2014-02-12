@@ -1,6 +1,4 @@
-PlusMoins est un jeu destiné à tout le monde.
-
-Le but est de deviner par étapes un nombre que l'ordinateur aura choisi.
+POM est un jeu de stratégie, il s'agit de trouver le nombre mystère dans le nombre de coups impartis 
 
 Evidemment, plus le niveau sera difficile, moins vous aurez de coups pour deviner. Heureusement, pour chaque nombre proposé, l'ordinateur vous indique si c'est plus, ou si c'est moins...
 

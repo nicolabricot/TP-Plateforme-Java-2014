@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package melordi;
+package core;
 
 
 
@@ -56,14 +56,14 @@ public class Clavier extends Parent {
         this.getChildren().add(fond);
         
         this.touches = new Touche[]{
-            new Touche("U",50,20,60, this.instrument),
-            new Touche("I",128,20,62, this.instrument),
-            new Touche("O",206,20,64, this.instrument),
-            new Touche("P",284,20,65, this.instrument),
-            new Touche("J",75,98,67, this.instrument),
-            new Touche("K",153,98,69, this.instrument),
-            new Touche("L",231,98,71, this.instrument),
-            new Touche("M",309,98,72, this.instrument)
+            new Touche("Do - u",50,20,60, this.instrument),
+            new Touche("Re - i",128,20,62, this.instrument),
+            new Touche("Mi - o",206,20,64, this.instrument),
+            new Touche("Fa - p",284,20,65, this.instrument),
+            new Touche("Sol - j",75,98,67, this.instrument),
+            new Touche("La - k",153,98,69, this.instrument),
+            new Touche("Si - l",231,98,71, this.instrument),
+            new Touche("Do - m",309,98,72, this.instrument)
         };
         
         for (Touche touche: touches){

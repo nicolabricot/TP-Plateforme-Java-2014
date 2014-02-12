@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package melordi;
+package core;
 
 import javafx.event.EventHandler;
 import javafx.scene.Parent;

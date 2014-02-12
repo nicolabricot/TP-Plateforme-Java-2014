@@ -23,7 +23,6 @@ import javafx.scene.control.MenuItemBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -34,7 +33,6 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -158,15 +156,203 @@ public class PlusMoins extends Application {
                 this.textSol.setScaleY(1.25);
                 this.tf = new TextField();
                 this.tf.setText("0");
-                this.tf.relocate(110, 210);                
+                this.tf.relocate(110, 210);
                 this.buttonP = new Button("+");
                 this.buttonP.relocate(70, 210);
                 this.buttonM = new Button("-");
                 this.buttonM.relocate(260, 210);
                 this.buttonOK = new Button("OK ?");
                 this.buttonOK.relocate(150, 250);
-                
-                                //actions des boutons  
+
+                //actions des boutons  
+                this.buttonP.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent t) {
+                        if (game.userNumber <= 9) {
+                            game.userNumber++;
+                            tf.setText(Integer.toString(game.userNumber));
+                        }
+                    }
+                });
+                this.buttonM.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        if (game.userNumber >= 1) {
+                            game.userNumber--;
+                            tf.setText(Integer.toString(game.userNumber));
+                        }
+
+                    }
+                });
+                this.tf.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        game.userNumber = Integer.parseInt(tf.getText());
+                    }
+                });
+                this.buttonOK.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        if (game.userNumber == game.mysteriousNumber) {
+                            textSol.setText("Bravo ! Vous avez trouvé le nombre mystere");
+
+                            root.getChildren().remove(tf);
+                            root.getChildren().remove(textIndic);
+                            root.getChildren().remove(buttonM);
+                            root.getChildren().remove(buttonOK);
+                            root.getChildren().remove(buttonP);
+                            root.getChildren().remove(textSol);
+                            game.setwin();
+
+                        } else {
+                            if (game.counter == 1) {
+                                textSol.setText("Oh ... Tu as perdu !");
+                            }
+                            textSol.setText(game.inGame());
+
+                        }
+                    }
+                });
+
+                root.getChildren().add(this.tf);
+                root.getChildren().add(this.textSol);
+                root.getChildren().add(this.textIndic);
+                root.getChildren().add(this.buttonP);
+                root.getChildren().add(this.buttonM);
+                root.getChildren().add(this.buttonOK);
+            }
+        });
+
+        menu112.setOnAction(new EventHandler<ActionEvent>() {
+            private Text textIndic;
+            private Text textSol = new Text();
+            private TextField tf;
+            private Button buttonP;
+            private Button buttonM;
+            private Button buttonOK;
+
+            @Override
+            public void handle(ActionEvent t) {
+                final Game game = new Game("Facile");
+
+                this.textIndic = new Text("Choisi un nombre :");
+                this.textIndic.relocate(75, 180);
+                this.textIndic.setScaleX(1.25);
+                this.textIndic.setScaleY(1.25);
+                this.textSol.setText("Aller c'est parti !");
+                this.textSol.relocate(150, 270);
+                this.textSol.setScaleX(1.25);
+                this.textSol.setScaleY(1.25);
+                this.tf = new TextField();
+                this.tf.setText("0");
+                this.tf.relocate(110, 210);
+                this.buttonP = new Button("+");
+                this.buttonP.relocate(70, 210);
+                this.buttonM = new Button("-");
+                this.buttonM.relocate(260, 210);
+                this.buttonOK = new Button("OK ?");
+                this.buttonOK.relocate(150, 250);
+
+                //actions des boutons  
+                this.buttonP.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent t) {
+
+                        if (game.userNumber <= 99) {
+                            game.userNumber++;
+                            tf.setText(Integer.toString(game.userNumber));
+                        }
+                    }
+                });
+                this.buttonM.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        if (game.userNumber >= 1) {
+                            game.userNumber--;
+                            tf.setText(Integer.toString(game.userNumber));
+                        }
+
+                    }
+                });
+                this.tf.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        game.userNumber = Integer.parseInt(tf.getText());
+                    }
+                });
+                this.buttonOK.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent e) {
+                        if (game.userNumber == game.mysteriousNumber) {
+                            textSol.setText("Bravo ! Vous avez trouvé le nombre mystere");
+
+                            //root.getChildren().remove(tf);
+                            root.getChildren().remove(textIndic);
+                            root.getChildren().remove(buttonM);
+                            root.getChildren().remove(buttonOK);
+                            root.getChildren().remove(buttonP);
+                            root.getChildren().remove(textSol);
+                            game.setwin();
+
+                        } else {
+                            if (game.counter <= 1) {
+                                textSol.setText("Oh ... Tu as perdu !");
+
+                            }
+                            textSol.setText(game.inGame());
+
+                        }
+                    }
+                });
+
+                root.getChildren().add(this.tf);
+                root.getChildren().add(this.textSol);
+                root.getChildren().add(this.textIndic);
+                root.getChildren().add(this.buttonP);
+                root.getChildren().add(this.buttonM);
+                root.getChildren().add(this.buttonOK);
+            }
+        });
+
+        menu113.setOnAction(new EventHandler<ActionEvent>() {
+            private Text textIndic;
+            private Text textSol;
+            private TextField tf;
+            private Button buttonP;
+            private Button buttonM;
+            private Button buttonOK;
+
+            @Override
+            public void handle(ActionEvent t) {
+                final Game game = new Game("Facile");
+
+                this.textIndic = new Text("Choisi un nombre :");
+                this.textIndic.relocate(75, 180);
+                this.textIndic.setScaleX(1.25);
+                this.textIndic.setScaleY(1.25);
+                this.textSol = new Text("");
+                this.textSol.relocate(150, 270);
+                this.textSol.setScaleX(1.25);
+                this.textSol.setScaleY(1.25);
+                this.tf = new TextField();
+                this.tf.setText("0");
+                this.tf.relocate(110, 210);
+                this.buttonP = new Button("+");
+                this.buttonP.relocate(70, 210);
+                this.buttonM = new Button("-");
+                this.buttonM.relocate(260, 210);
+                this.buttonOK = new Button("OK ?");
+                this.buttonOK.relocate(150, 250);
+
+                //actions des boutons  
                 this.buttonP.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
@@ -209,7 +395,7 @@ public class PlusMoins extends Application {
                     public void handle(ActionEvent e) {
                         if (game.userNumber == game.mysteriousNumber) {
                             textSol.setText("Bravo ! Vous avez trouvé le nombre mystere");
-                            
+
                             root.getChildren().remove(tf);
                             root.getChildren().remove(textIndic);
                             root.getChildren().remove(buttonM);
@@ -218,10 +404,16 @@ public class PlusMoins extends Application {
                             root.getChildren().remove(textSol);
                             game.setwin();
 
-                            
                         } else {
+                            if (game.inGame() == "Oh tu as perdu ! ") {
+                                root.getChildren().remove(tf);
+                                root.getChildren().remove(textIndic);
+                                root.getChildren().remove(buttonM);
+                                root.getChildren().remove(buttonOK);
+                                root.getChildren().remove(buttonP);
+                            }
                             textSol.setText(game.inGame());
-                            
+
                         }
                     }
                 });
@@ -232,6 +424,14 @@ public class PlusMoins extends Application {
                 root.getChildren().add(this.buttonP);
                 root.getChildren().add(this.buttonM);
                 root.getChildren().add(this.buttonOK);
+            }
+        });
+
+        menu12.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                System.exit(0);
             }
         });
     }

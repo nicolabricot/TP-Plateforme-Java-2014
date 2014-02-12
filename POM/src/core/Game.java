@@ -78,7 +78,7 @@ public class Game {
             int tmp = 10 - counter;
             return "C'est moins ! Attention il vous reste : " + tmp + " coups.";
         }
-        return "Oups ! Une erreur est survenue ...";
+        return "Oh tu as perdu ! ";
     }
 
     public void setwin() {

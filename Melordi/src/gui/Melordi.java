@@ -1,5 +1,7 @@
-package melordi;
+package gui;
 
+import core.Clavier;
+import core.Instruments;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
