@@ -56,14 +56,14 @@ public class Clavier extends Parent {
         this.getChildren().add(fond);
         
         this.touches = new Touche[]{
-            new Touche("Do u",45,20,60, this.instrument),
-            new Touche("Re i",123,20,62, this.instrument),
-            new Touche("Mi o",201,20,64, this.instrument),
-            new Touche("Fa p",279,20,65, this.instrument),
-            new Touche("Sol j",70,98,67, this.instrument),
-            new Touche("La k",148,98,69, this.instrument),
-            new Touche("Si l",226,98,71, this.instrument),
-            new Touche("Do m",304,98,72, this.instrument)
+            new Touche("U",45,20,60, this.instrument),
+            new Touche("I",123,20,62, this.instrument),
+            new Touche("O",201,20,64, this.instrument),
+            new Touche("P",279,20,65, this.instrument),
+            new Touche("J",70,98,67, this.instrument),
+            new Touche("K",148,98,69, this.instrument),
+            new Touche("L",226,98,71, this.instrument),
+            new Touche("M",304,98,72, this.instrument)
         };
         
         for (Touche touche: touches){
