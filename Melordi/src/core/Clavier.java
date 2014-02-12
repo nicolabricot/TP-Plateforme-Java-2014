@@ -51,19 +51,19 @@ public class Clavier extends Parent {
         r.setTopOpacity(0.5);
         fond.setEffect(r);
         
-        this.setTranslateX(50);
-        this.setTranslateY(250);
+       // this.setTranslateX(50);
+        //this.setTranslateY(250);
         this.getChildren().add(fond);
         
         this.touches = new Touche[]{
-            new Touche("Do - u",50,20,60, this.instrument),
-            new Touche("Re - i",128,20,62, this.instrument),
-            new Touche("Mi - o",206,20,64, this.instrument),
-            new Touche("Fa - p",284,20,65, this.instrument),
-            new Touche("Sol - j",75,98,67, this.instrument),
-            new Touche("La - k",153,98,69, this.instrument),
-            new Touche("Si - l",231,98,71, this.instrument),
-            new Touche("Do - m",309,98,72, this.instrument)
+            new Touche("Do u",45,20,60, this.instrument),
+            new Touche("Re i",123,20,62, this.instrument),
+            new Touche("Mi o",201,20,64, this.instrument),
+            new Touche("Fa p",279,20,65, this.instrument),
+            new Touche("Sol j",70,98,67, this.instrument),
+            new Touche("La k",148,98,69, this.instrument),
+            new Touche("Si l",226,98,71, this.instrument),
+            new Touche("Do m",304,98,72, this.instrument)
         };
         
         for (Touche touche: touches){
@@ -87,4 +87,5 @@ public class Clavier extends Parent {
             }
         });
     }
+    
 }

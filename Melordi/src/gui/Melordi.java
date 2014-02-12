@@ -19,7 +19,7 @@ public class Melordi extends Application {
         primaryStage.setTitle("Melordi!");
         
         Group root = new Group();
-        Scene scene = new Scene(root, 500,500,Color.CORAL);
+        Scene scene = new Scene(root, 400,200,Color.CORAL);
         
         Instruments myInstrument = new Instruments();
         
