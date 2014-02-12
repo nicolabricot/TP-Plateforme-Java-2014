@@ -13,6 +13,7 @@ import static java.lang.Math.random;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
@@ -48,7 +49,7 @@ import javafx.util.Duration;
 public class Launcher extends Application {
 
     Group root = new Group();
-    public static final String GAMES_FOLDER = "projet";
+    public static final String GAMES_FOLDER = "games";
     public static final String GAME_EXTENSION = ".jar";
     private final File folder = new File(Launcher.GAMES_FOLDER);
     private ArrayList<String> games = new ArrayList<String>();
@@ -57,15 +58,18 @@ public class Launcher extends Application {
     private final int LEFT_WIDTH = 200;
     private final int RIGHT_WIDTH = 300;
 
-    private void listGames() {
+    private void listGames() throws Exception {
         String[] list = folder.list();
         for (String game : list) {
             if (game.endsWith(Launcher.GAME_EXTENSION)) {
                 this.games.add(game);
             }
         }
+        
+        Collections.sort(this.games);
 
         if (this.games.isEmpty()) {
+            throw new IOException("Games folder is empty, no JAR file found");
         }
 
     }
@@ -227,7 +231,11 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.listGames();
+        try {
+            this.listGames();
+        } catch (Exception ex) {
+            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         this.createCircles();
         this.createRectangles();
