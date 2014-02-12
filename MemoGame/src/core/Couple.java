@@ -23,6 +23,7 @@ public class Couple {
     }
   
     public void checkedCard() {
+        this.game.cardHitten();
         if (this.left.state().equals(Card.STATE.VISIBLE) && this.right.state().equals(Card.STATE.VISIBLE)) {
             // both card are visible, we have found a couple :)
             this.left.updateState(Card.STATE.MATCHED);

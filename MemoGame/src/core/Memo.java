@@ -125,4 +125,8 @@ public class Memo {
             this.gameBoard.gameIsEnded();
         }
     }
+    
+    public void cardHitten() {
+        this.gameBoard.cardHitten();
+    }
 }

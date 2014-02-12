@@ -36,10 +36,11 @@ public class Game extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(ClassLoader.getSystemResource("res/icon.png")).getImage());
         /* init toolbar info */
         this.countGames = 0;
-        this.timer = new Timer(1000, new ActionListener(){
+        this.countGames = 0;
+        this.timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                counter++;
+                time++;
                 updateTimeInfo();
             }
         });
@@ -68,6 +69,13 @@ public class Game extends javax.swing.JFrame {
         CounterLabel = new javax.swing.JLabel();
         ToolBarInfoSeparator2 = new javax.swing.JToolBar.Separator();
         LevelLabel = new javax.swing.JLabel();
+        ToolBarInfoSeparator3 = new javax.swing.JToolBar.Separator();
+        HitLabel = new javax.swing.JLabel();
+        HitLabelLegend = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        BestScoreLabelLegend1 = new javax.swing.JLabel();
+        BestScoreLabel = new javax.swing.JLabel();
+        BestScoreLabelLegend2 = new javax.swing.JLabel();
         MainMenuBar = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         MenuQuit = new javax.swing.JMenuItem();
@@ -100,6 +108,29 @@ public class Game extends javax.swing.JFrame {
 
         LevelLabel.setText("level");
         ToolBarInfo.add(LevelLabel);
+
+        ToolBarInfoSeparator3.setForeground(Game.DARK_BLUE);
+        ToolBarInfoSeparator3.setSeparatorSize(new java.awt.Dimension(20, 0));
+        ToolBarInfo.add(ToolBarInfoSeparator3);
+
+        HitLabel.setText("x");
+        ToolBarInfo.add(HitLabel);
+
+        HitLabelLegend.setText(" hit");
+        ToolBarInfo.add(HitLabelLegend);
+        ToolBarInfo.add(filler1);
+
+        BestScoreLabelLegend1.setForeground(new java.awt.Color(102, 102, 102));
+        BestScoreLabelLegend1.setText("Best: ");
+        ToolBarInfo.add(BestScoreLabelLegend1);
+
+        BestScoreLabel.setForeground(new java.awt.Color(102, 102, 102));
+        BestScoreLabel.setText("0");
+        ToolBarInfo.add(BestScoreLabel);
+
+        BestScoreLabelLegend2.setForeground(new java.awt.Color(102, 102, 102));
+        BestScoreLabelLegend2.setText(" hits");
+        ToolBarInfo.add(BestScoreLabelLegend2);
 
         FileMenu.setText("File");
 
@@ -140,7 +171,7 @@ public class Game extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ToolBarInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(ToolBarInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,10 +221,12 @@ public class Game extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, "Level " + this.level + " not recognized!");
         } else {
-            this.counter = 0;
+            this.time = 0;
+            this.hit = 0;
             this.updateTimeInfo();
             this.updateGameInfo();
-            
+            this.updateHitInfo();
+
             this.game = new Memo(this.level, this);
             JPanel containerPanel = new JPanel(new BorderLayout(10, 15));
             JPanel panel = new JPanel(new GridLayout(this.game.rows(), this.game.cols(), 10, 10));
@@ -203,7 +236,7 @@ public class Game extends javax.swing.JFrame {
             }
             containerPanel.add(this.ToolBarInfo, BorderLayout.PAGE_END);
             containerPanel.add(panel, BorderLayout.CENTER);
-            containerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));            
+            containerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
             this.setContentPane(containerPanel);
             this.setResizable(false);
@@ -219,15 +252,19 @@ public class Game extends javax.swing.JFrame {
         this.timer.stop();
         this.countGames++;
         this.updateGameInfo();
-        long minute = TimeUnit.SECONDS.toMinutes(this.counter);
-        long second = TimeUnit.SECONDS.toSeconds(this.counter) - (TimeUnit.SECONDS.toMinutes(this.counter) *60);
-        String time = (minute > 0 ? Long.toString(minute) + " minute" + (minute > 1 ? "s" : "") + " and " : "") + 
-                (second > 0 ? Long.toString(second) + " second" + (second > 1 ? "s" : "") : "");
-        if (this.counter >= this.timeOut) {
-            time = "a too long time";
+        if (this.bestHint > this.hit || this.bestHint == 0) {
+            this.bestHint = this.hit;
+            this.BestScoreLabel.setText(Integer.toString(this.bestHint));
+        }
+        long minute = TimeUnit.SECONDS.toMinutes(this.time);
+        long second = TimeUnit.SECONDS.toSeconds(this.time) - (TimeUnit.SECONDS.toMinutes(this.time) * 60);
+        String duration = (minute > 0 ? Long.toString(minute) + " minute" + (minute > 1 ? "s" : "") + " and " : "")
+                + (second > 0 ? Long.toString(second) + " second" + (second > 1 ? "s" : "") : "");
+        if (this.time >= this.timeOut) {
+            duration = "a too long time";
         }
         JOptionPane.showMessageDialog(null,
-                "Congratulations, you've completed the game in " + time + ".",
+                "Congratulations! \nYou've completed the game in " + duration + " and " + this.hit + " hits.",
                 "Win!",
                 JOptionPane.INFORMATION_MESSAGE);
         Logger.getLogger(Game.class.getName()).log(Level.INFO, "Game is ended.");
@@ -237,19 +274,34 @@ public class Game extends javax.swing.JFrame {
         this.GameCountsLabel.setText(Integer.toString(this.countGames));
         this.LevelLabel.setText(this.level.toString());
     }
+
     private void updateTimeInfo() {
-        long minute = TimeUnit.SECONDS.toMinutes(this.counter);
-        long second = TimeUnit.SECONDS.toSeconds(this.counter) - (TimeUnit.SECONDS.toMinutes(this.counter) *60);
+        long minute = TimeUnit.SECONDS.toMinutes(this.time);
+        long second = TimeUnit.SECONDS.toSeconds(this.time) - (TimeUnit.SECONDS.toMinutes(this.time) * 60);
         if (minute >= this.timeOut) {
-            this.CounterLabel.setText("time's up..."); 
+            this.CounterLabel.setText("time's up...");
             JOptionPane.showMessageDialog(null,
-                "It seems to be a quite difficult to find all pairs. \nMay be you should change to a lower level?",
-                "Time's up...",
-                JOptionPane.WARNING_MESSAGE);
+                    "It seems to be a quite difficult to find all pairs. \nMay be you should change to a lower level?",
+                    "Time's up...",
+                    JOptionPane.WARNING_MESSAGE);
             this.timer.stop();
         } else {
             this.CounterLabel.setText(format.format(minute) + ":" + format.format(second));
         }
+    }
+
+    private void updateHitInfo() {
+        this.HitLabel.setText(Integer.toString(this.hit));
+        if (this.hit > 1) {
+            this.HitLabelLegend.setText(" hits");
+        } else {
+            this.HitLabelLegend.setText(" hit");
+        }
+    }
+
+    public void cardHitten() {
+        this.hit++;
+        updateHitInfo();
     }
 
     /**
@@ -287,11 +339,16 @@ public class Game extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BestScoreLabel;
+    private javax.swing.JLabel BestScoreLabelLegend1;
+    private javax.swing.JLabel BestScoreLabelLegend2;
     private javax.swing.JLabel CounterLabel;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JLabel GameCountsLabel;
     private javax.swing.JMenu GameMenu;
     private javax.swing.JLabel GamesCountLabelLegend;
+    private javax.swing.JLabel HitLabel;
+    private javax.swing.JLabel HitLabelLegend;
     private javax.swing.JLabel LevelLabel;
     private javax.swing.JMenuBar MainMenuBar;
     private javax.swing.JMenuItem MenuNewGame;
@@ -300,12 +357,15 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JToolBar ToolBarInfo;
     private javax.swing.JToolBar.Separator ToolBarInfoSeparator1;
     private javax.swing.JToolBar.Separator ToolBarInfoSeparator2;
+    private javax.swing.JToolBar.Separator ToolBarInfoSeparator3;
+    private javax.swing.Box.Filler filler1;
     // End of variables declaration//GEN-END:variables
-    
     private Memo game;
     private Memo.LEVEL level = Memo.LEVEL.Normal;
     private int countGames;
-    private int counter;
+    private int time;
+    private int hit;
+    private int bestHint;
     private final int timeOut = 15; // in minutes
     private Timer timer;
     public static final Color DARK_BLUE = new Color(0, 89, 178);

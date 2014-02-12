@@ -1,0 +1,6 @@
+MemoGame is a card game in which all of the cards are laid face down and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
+It's as solitaire game and is an especially good game for young children, though adults may find it challenging and stimulating as well.
+
+The game offers 4 difficulty levels which are from Easy to Expert. A timer is also integrated to make you play quickly.
+
+Feel free to try it and enjoy a concentration and mamory game!
